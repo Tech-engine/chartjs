@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pie chart</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<script src="chartbundle.js"></script>
+	<script src="utils.js"></script>
+	<style type="text/css">
+		canvas{
+			background-color: rgb(204,176,66);
+		}
+		h3{
+			color: rgb(0,147,166);
+
+		}
+		span{
+			font-weight: bold;
+			display: block;
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+    <div class="row" style="padding: 50px 10px 50px 10px">  
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <h3>WHEN MIGHT YOU CONSIDER CHANGING YOUR SOFTWARE ?</h3>
+            <span>A. Response: 2-4 months</span>
+            <span>B. Response: 4-6 months</span>
+            <span>C. Response: 6-12 months</span>
+            <span>D. Response: 1 year +</span>
+        </div>
+        <div id="container" style="width: 50%; max-height:90px;" class="col-lg-6">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <script>
+
+        var color = Chart.helpers.color;
+        var barChartData = {
+            labels: ["", "", "", "", ""],
+            datasets: [{
+                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.red,
+                borderWidth: 2,
+                borderColor: 'rgba(255,255,255,1)',
+                data: [
+                    87,
+                    78,
+                    90,
+                    45,
+                    1
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ]
+            }]
+
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: false,
+                    },
+                    title: {
+                        display: false,
+                        text: 'Chart.js Bar Chart'
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false,
+                                drawBorder: false,
+                            },
+                            barThickness: 50,
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false,
+                                drawBorder: false,
+                            },
+                        }],
+                        
+                    }
+                }
+            });
+
+        };
+
+
+    </script>
+</body>
+</html>

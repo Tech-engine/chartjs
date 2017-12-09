@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pie chart</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<script src="chartbundle.js"></script>
+	<script src="utils.js"></script>
+	<style type="text/css">
+		canvas{
+			background-color: rgb(0,147,166);
+		}
+		h3{
+			color: rgb(0,147,166);
+
+		}
+		span{
+			font-weight: bold;
+			display: block;
+			margin: 20px;
+			color: grey;
+		}
+	</style>
+</head>
+<body>
+	<div class="row" style="padding: 50px 10px 50px 10px">	
+		<div id="canvas-holder" style="width:50%;" class="col-lg-6">
+			<canvas id="chart-area" />
+		</div> 
+		<div class="col-lg-5">
+			<h3>WHEN MIGHT YOU CONSIDER CHANGING YOUR SOFTWARE ?</h3>
+			<span>A. Response: 2-4 months</span>
+			<span>B. Response: 4-6 months</span>
+			<span>C. Response: 6-12 months</span>
+			<span>D. Response: 1 year +</span>
+		</div>	
+	</div>
+    <button id="randomizeData">Randomize Data</button>
+    <script>
+    var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                    window.chartColors.blue,
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+            	enabled: false,
+            },
+        }
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myPie = new Chart(ctx, config);
+    };
+
+    document.getElementById('randomizeData').addEventListener('click', function() {
+        config.data.datasets.forEach(function(dataset) {
+            dataset.data = dataset.data.map(function() {
+                return randomScalingFactor();
+            });
+        });
+
+        window.myPie.update();
+    });
+    </script>
+
+</body>
+</html>
